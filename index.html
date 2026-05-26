@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ceulemans Grondwerken — Werkbon & Planning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --brand:#EA580C;--brand-light:#FEF0E7;--brand-dark:#C2410C;
+  --s50:#F8FAFC;--s100:#F1F5F9;--s200:#E2E8F0;--s300:#CBD5E1;
+  --s400:#94A3B8;--s500:#64748B;--s600:#475569;--s700:#334155;
+  --s800:#1E293B;--s900:#0F172A;
+  --nog:#64748B;--nog-bg:#F1F5F9;
+  --gep:#D97706;--gep-bg:#FFFBEB;
+  --in:#2563EB;--in-bg:#EFF6FF;
+  --uit:#16A34A;--uit-bg:#F0FDF4;--uit-border:#BBF7D0;--uit-dark:#166534;
+  --ann:#DC2626;--ann-bg:#FEF2F2;
+  --fac:#7C3AED;--fac-bg:#F5F3FF;
+  --font:'Inter',system-ui,sans-serif;
+}
+html,body{height:100%;font-family:var(--font);background:var(--s100);color:var(--s800);font-size:13px;overflow:hidden}
+
+/* ── TOP NAV (desktop/mobile toggle) ── */
+.top-nav{height:48px;background:var(--s900);display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0;z-index:100}
+.top-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.top-logo-icon{width:28px;height:28px;background:var(--brand);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.top-logo-icon i{color:white;font-size:15px}
+.top-logo-text{color:white;font-size:13px;font-weight:700;letter-spacing:-0.2px}
+.top-spacer{flex:1}
+.view-toggle{display:flex;border:1px solid rgba(255,255,255,0.15);border-radius:7px;overflow:hidden}
+.vt{padding:5px 14px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.15s;border:none;background:transparent}
+.vt.active{background:var(--brand);color:white}
+.top-user{display:flex;align-items:center;gap:8px;margin-left:8px}
+.top-avatar{width:28px;height:28px;border-radius:50%;background:var(--brand);display:flex;align-items:center;justify-content:center;color:white;font-size:10px;font-weight:700}
+.top-name{color:rgba(255,255,255,0.65);font-size:12px}
+
+/* ── LAYOUT ── */
+.app-shell{display:flex;height:calc(100vh - 48px);overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sidebar{width:200px;background:var(--s900);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:width 0.2s}
+.nav{flex:1;padding:8px;overflow-y:auto}
+.nav-section{margin-bottom:18px}
+.nav-label{color:rgba(255,255,255,0.25);font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:0 8px;margin-bottom:3px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:6px;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.15s;font-size:12.5px;white-space:nowrap}
+.nav-item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.85)}
+.nav-item.active{background:rgba(234,88,12,0.2);color:white}
+.nav-item i{font-size:16px;flex-shrink:0;opacity:0.7}
+.nav-item.active i{opacity:1}
+.nav-count{margin-left:auto;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.55);font-size:10px;padding:1px 6px;border-radius:10px}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{background:white;border-bottom:1px solid var(--s200);padding:0 22px;height:50px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+.topbar-title{font-size:15px;font-weight:700;color:var(--s900)}
+.topbar-sub{color:var(--s400);font-size:12px}
+.topbar-actions{margin-left:auto;display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid var(--s200);background:white;color:var(--s700);transition:all 0.15s;font-family:var(--font)}
+.btn:hover{background:var(--s50);border-color:var(--s300)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:white}
+.btn.primary:hover{background:var(--brand-dark)}
+.content{flex:1;overflow-y:auto}
+
+/* ── TABS ── */
+.tab-nav{display:flex;gap:1px;padding:0 22px;background:white;border-bottom:1px solid var(--s200);flex-shrink:0}
+.tab{padding:10px 13px;font-size:12px;color:var(--s500);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.tab:hover{color:var(--s700)}
+.tab.active{color:var(--brand);border-bottom-color:var(--brand);font-weight:600}
+.tab-badge{background:var(--s100);color:var(--s500);font-size:10px;padding:1px 5px;border-radius:8px}
+.tab.active .tab-badge{background:var(--brand-light);color:var(--brand)}
+
+/* ── STATUS CHIPS ── */
+.chip{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:20px;font-size:10.5px;font-weight:500;white-space:nowrap}
+.chip-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.chip.nog{background:var(--nog-bg);color:var(--nog)}.chip.nog .chip-dot{background:var(--nog)}
+.chip.gep{background:var(--gep-bg);color:var(--gep)}.chip.gep .chip-dot{background:var(--gep)}
+.chip.in{background:var(--in-bg);color:var(--in)}.chip.in .chip-dot{background:var(--in)}
+.chip.uit{background:var(--uit-bg);color:var(--uit-dark)}.chip.uit .chip-dot{background:var(--uit)}
+.chip.ann{background:var(--ann-bg);color:var(--ann)}.chip.ann .chip-dot{background:var(--ann)}
+.chip.fac{background:var(--fac-bg);color:var(--fac)}.chip.fac .chip-dot{background:var(--fac)}
+
+/* ── PAGES ── */
+.page{display:none;flex-direction:column;flex:1;overflow:hidden}
+.page.active{display:flex}
+
+/* ── DASHBOARD ── */
+.dashboard-body{padding:20px;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi-card{background:white;border-radius:10px;border:1px solid var(--s200);padding:16px 18px}
+.kpi-label{font-size:10.5px;color:var(--s500);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
+.kpi-value{font-size:26px;font-weight:700;color:var(--s900);line-height:1;font-variant-numeric:tabular-nums}
+.kpi-sub{font-size:11px;color:var(--s400);margin-top:4px}
+.dash-grid{display:grid;grid-template-columns:1fr 300px;gap:14px}
+.card{background:white;border-radius:10px;border:1px solid var(--s200)}
+.card-header{padding:13px 16px;border-bottom:1px solid var(--s100);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:12.5px;font-weight:600;color:var(--s800)}
+.card-body{padding:14px 16px}
+.week-bars{display:flex;gap:6px;align-items:flex-end;height:72px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.bar-stack{width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+.bar-seg{width:100%}
+.bar-label{font-size:10px;color:var(--s400)}
+.bar-hours{font-size:10px;color:var(--s600);font-weight:500;font-variant-numeric:tabular-nums}
+.today-item{display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid var(--s100)}
+.today-item:last-child{border-bottom:none}
+.today-time{font-size:11px;color:var(--s500);width:68px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.today-name{font-size:12.5px;font-weight:500;color:var(--s800);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.today-sub{font-size:11px;color:var(--s400)}
+.activity-item{display:flex;gap:9px;padding:6px 0;border-bottom:1px solid var(--s50)}
+.activity-item:last-child{border-bottom:none}
+.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.act-text{font-size:11.5px;color:var(--s600);line-height:1.4}
+.act-time{font-size:10px;color:var(--s400);margin-top:1px}
+.act-bold{font-weight:600;color:var(--s800)}
+
+/* ── PLANNING ── */
+.planning-layout{display:flex;flex:1;overflow:hidden}
+.queue-panel{width:268px;border-right:1px solid var(--s200);background:white;display:flex;flex-direction:column;flex-shrink:0}
+.queue-header{padding:13px 14px;border-bottom:1px solid var(--s200)}
+.queue-title{font-size:12.5px;font-weight:600;color:var(--s700)}
+.queue-sub{font-size:11px;color:var(--s400);margin-top:1px}
+.queue-list{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:7px}
+.queue-card{background:var(--s50);border:1px solid var(--s200);border-radius:8px;padding:9px 11px;cursor:grab;transition:all 0.15s;user-select:none}
+.queue-card:hover{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand-light)}
+.queue-card.dragging{opacity:0.4;cursor:grabbing}
+.qc-nr{font-size:10px;color:var(--s400);font-weight:600;font-family:monospace}
+.qc-klant{font-size:12.5px;font-weight:700;color:var(--s900);margin:2px 0}
+.qc-werk{font-size:11px;color:var(--s500);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qc-footer{display:flex;align-items:center;gap:6px;margin-top:5px}
+.qc-addr{font-size:10.5px;color:var(--s400);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scheduler{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.sched-toolbar{padding:9px 14px;background:white;border-bottom:1px solid var(--s200);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.sched-nav{display:flex;align-items:center;gap:5px}
+.nav-arrow{width:26px;height:26px;border:1px solid var(--s200);border-radius:5px;background:white;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--s500);font-size:13px;transition:all 0.15s}
+.nav-arrow:hover{background:var(--s50)}
+.sched-date{font-size:12.5px;font-weight:600;color:var(--s800);min-width:130px;text-align:center}
+.view-tog{display:flex;border:1px solid var(--s200);border-radius:6px;overflow:hidden}
+.vt-b{padding:5px 11px;font-size:11.5px;background:white;color:var(--s600);cursor:pointer;border:none;font-family:var(--font);transition:all 0.15s}
+.vt-b.active{background:var(--s800);color:white}
+.sched-body{flex:1;overflow:auto;position:relative}
+.sched-grid{display:flex;min-width:900px;height:100%}
+.sched-resources{width:155px;flex-shrink:0;background:white;border-right:1px solid var(--s200);position:sticky;left:0;z-index:10}
+.sched-times{flex:1;position:relative}
+.time-axis{height:34px;background:white;border-bottom:1px solid var(--s200);position:sticky;top:0;z-index:5;position:relative}
+.time-tick{position:absolute;font-size:10px;color:var(--s400);font-variant-numeric:tabular-nums;transform:translateX(-50%);bottom:6px}
+.res-header{height:34px;background:white;border-bottom:1px solid var(--s200);position:sticky;top:0;z-index:5;display:flex;align-items:center;padding:0 10px}
+.res-group-row{height:26px;background:var(--s50);display:flex;align-items:center;padding:0 10px;border-bottom:1px solid var(--s200)}
+.res-group-lbl{font-size:9px;font-weight:700;color:var(--s400);text-transform:uppercase;letter-spacing:0.8px}
+.res-row{display:flex;align-items:center;gap:7px;padding:0 9px;border-bottom:1px solid var(--s100)}
+.res-row.person{height:52px}
+.res-row.machine{height:44px;background:rgba(0,0,0,0.012)}
+.res-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;flex-shrink:0}
+.res-name{font-size:11.5px;font-weight:500;color:var(--s700)}
+.res-role{font-size:10px;color:var(--s400)}
+.time-row{border-bottom:1px solid var(--s100);position:relative}
+.time-row.person{height:52px}
+.time-row.machine{height:44px;background:rgba(0,0,0,0.012)}
+.time-row.group{height:26px;background:var(--s50);border-bottom:1px solid var(--s200)}
+.lunch-shade{position:absolute;top:0;bottom:0;background:rgba(0,0,0,0.022);pointer-events:none}
+.now-line{position:absolute;top:0;bottom:0;width:2px;background:var(--brand);opacity:0.85;pointer-events:none;z-index:8}
+.now-circle{position:absolute;width:8px;height:8px;background:var(--brand);border-radius:50%;left:-3px;top:-4px}
+.sched-event{position:absolute;border-radius:5px;padding:0 7px;display:flex;align-items:center;gap:4px;cursor:pointer;overflow:hidden;z-index:3;transition:filter 0.15s}
+.sched-event:hover{filter:brightness(0.9)}
+.ev-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);flex-shrink:0}
+.ev-text{font-size:11px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-time{font-size:10px;color:rgba(255,255,255,0.75);white-space:nowrap;flex-shrink:0}
+.drop-zone{display:none;position:absolute;top:34px;bottom:0;left:0;right:0;background:rgba(234,88,12,0.04);border:2px dashed var(--brand);z-index:20;pointer-events:none;align-items:center;justify-content:center}
+.drop-badge{background:var(--brand);color:white;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600}
+
+/* ── WERKBONNEN ── */
+.search-bar{padding:10px 14px;background:white;border-bottom:1px solid var(--s200);display:flex;gap:8px;align-items:center;flex-shrink:0}
+.search-input{flex:1;max-width:300px;padding:6px 10px 6px 30px;border:1px solid var(--s200);border-radius:6px;font-size:12.5px;color:var(--s800);background:var(--s50) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E") no-repeat 8px center;font-family:var(--font)}
+.search-input:focus{outline:none;border-color:var(--brand)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{padding:8px 13px;text-align:left;font-size:10.5px;font-weight:600;color:var(--s500);text-transform:uppercase;letter-spacing:0.4px;background:var(--s50);border-bottom:1px solid var(--s200);white-space:nowrap}
+td{padding:9px 13px;border-bottom:1px solid var(--s100);font-size:12.5px;color:var(--s700);vertical-align:middle}
+tr:hover td{background:var(--s50);cursor:pointer}
+.wb-nr{font-family:monospace;font-size:11.5px;color:var(--brand);font-weight:600}
+.wb-klant{font-weight:600;color:var(--s900)}
+.wb-werf{font-size:11px;color:var(--s400);margin-top:1px}
+.wb-totaal{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+
+/* ── DRAWER ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:50;opacity:0;pointer-events:none;transition:opacity 0.2s}
+.overlay.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;right:0;top:48px;bottom:0;width:540px;background:white;box-shadow:-4px 0 32px rgba(0,0,0,0.12);z-index:51;transform:translateX(100%);transition:transform 0.25s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;display:flex;flex-direction:column}
+.drawer.open{transform:translateX(0)}
+.drawer-header{padding:16px 18px 14px;border-bottom:1px solid var(--s200);display:flex;align-items:flex-start;gap:10px;position:sticky;top:0;background:white;z-index:1;flex-shrink:0}
+.drawer-close{width:28px;height:28px;border-radius:6px;border:1px solid var(--s200);background:white;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--s500);font-size:16px;margin-left:auto;flex-shrink:0}
+.drawer-close:hover{background:var(--s100)}
+.drawer-nr{font-size:11px;color:var(--brand);font-weight:600;font-family:monospace}
+.drawer-title{font-size:14px;font-weight:700;color:var(--s900);margin-top:2px}
+.drawer-body{padding:18px;display:flex;flex-direction:column;gap:14px;flex:1}
+.ds-label{font-size:10px;font-weight:700;color:var(--s400);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px}
+.klant-card{background:var(--s50);border:1px solid var(--s200);border-radius:8px;padding:10px 13px;display:flex;align-items:center;gap:10px}
+.klant-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0}
+.klant-name{font-size:13px;font-weight:700;color:var(--s800)}
+.klant-addr{font-size:11.5px;color:var(--s500);margin-top:1px}
+.klant-actions{display:flex;gap:5px;margin-left:auto}
+.icon-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--s200);background:white;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--s500);font-size:14px;transition:all 0.15s}
+.icon-btn:hover{background:var(--s50);border-color:var(--s300)}
+.line-table{width:100%;border-collapse:collapse}
+.line-table th{font-size:10px;color:var(--s400);font-weight:600;padding:4px 7px;text-align:left;text-transform:uppercase;letter-spacing:0.4px;background:transparent;border-bottom:1px solid var(--s100)}
+.line-table td{padding:6px 7px;font-size:12px;border-top:1px solid var(--s100)}
+.totals-block{background:var(--s50);border-radius:8px;padding:11px 13px}
+.total-row{display:flex;justify-content:space-between;font-size:12.5px;padding:2px 0;color:var(--s600)}
+.total-row.bold{font-weight:700;color:var(--s900);font-size:14px;border-top:1px solid var(--s200);margin-top:5px;padding-top:7px}
+.plan-block{background:var(--gep-bg);border:1px solid #FDE68A;border-radius:6px;padding:8px 10px}
+.sig-block{background:var(--uit-bg);border:1px solid var(--uit-border);border-radius:6px;padding:9px 12px}
+.sig-name{font-size:12.5px;font-weight:700;color:var(--uit-dark)}
+.sig-date{font-size:11px;color:var(--uit);margin-top:1px}
+.drawer-footer{padding:13px 18px;border-top:1px solid var(--s200);display:flex;gap:7px;flex-shrink:0}
+
+/* ── MOBILE VIEW ── */
+.mobile-view{display:none;flex:1;overflow:hidden;align-items:center;justify-content:center;background:var(--s100);padding:20px}
+.mobile-view.active{display:flex;gap:20px;flex-wrap:wrap}
+.phone-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.phone-label{font-size:11px;color:var(--s500);font-weight:600;letter-spacing:0.3px}
+.phone{width:320px;background:var(--s900);border-radius:34px;padding:9px;border:1px solid var(--s800)}
+.phone-inner{background:white;border-radius:26px;overflow:hidden;min-height:620px;display:flex;flex-direction:column}
+.phone-status{height:42px;background:var(--s900);display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex-shrink:0}
+.phone-time{color:white;font-size:13px;font-weight:600}
+.phone-icons{display:flex;gap:4px;align-items:center;color:white;font-size:11px}
+.mscreen{display:none;flex-direction:column;flex:1;overflow:hidden}
+.mscreen.active{display:flex}
+.hero-hdr{background:var(--brand);padding:18px 18px 16px;flex-shrink:0}
+.hero-greet{color:rgba(255,255,255,0.8);font-size:11.5px;font-weight:500;margin-bottom:1px}
+.hero-name{color:white;font-size:18px;font-weight:700}
+.hero-kpis{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+.hero-kpi{background:rgba(255,255,255,0.15);border-radius:9px;padding:9px 11px}
+.hk-val{color:white;font-size:20px;font-weight:700;line-height:1}
+.hk-lbl{color:rgba(255,255,255,0.7);font-size:10px;margin-top:1px}
+.mscroll{flex:1;overflow-y:auto;background:var(--s50)}
+.msec-label{font-size:10px;font-weight:700;color:var(--s400);text-transform:uppercase;letter-spacing:0.8px;padding:12px 14px 5px}
+.ev-card{background:white;margin:0 10px 7px;border-radius:11px;border:1px solid var(--s200);overflow:hidden;cursor:pointer;transition:all 0.15s}
+.ev-card.hl{border-color:var(--in);border-width:1.5px}
+.ev-card:active{transform:scale(0.98)}
+.ev-bar{height:3px}
+.ev-body{padding:10px 12px}
+.ev-top{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.ev-time-lbl{font-size:11px;color:var(--s500);font-variant-numeric:tabular-nums;min-width:86px}
+.ev-klant{font-size:13px;font-weight:700;color:var(--s900)}
+.ev-werk{font-size:11px;color:var(--s500);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ev-werf{display:flex;align-items:center;gap:3px;margin-top:5px;font-size:10.5px;color:var(--s400)}
+.ev-foot{display:flex;gap:5px;padding:8px 12px;border-top:1px solid var(--s100);background:var(--s50)}
+.ev-btn{flex:1;padding:6px 0;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--s200);background:white;color:var(--s600);text-align:center;transition:all 0.15s;font-family:var(--font)}
+.ev-btn.primary{background:var(--brand);border-color:var(--brand);color:white}
+.recent-item{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid var(--s100);cursor:pointer}
+.ri-dot{width:7px;height:7px;border-radius:50%;background:var(--uit);flex-shrink:0}
+.ri-info{flex:1;min-width:0}
+.ri-name{font-size:12px;font-weight:500;color:var(--s700);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ri-sub{font-size:10.5px;color:var(--s400)}
+.ri-time{font-size:10px;color:var(--s400)}
+.m-tab-bar{height:56px;background:white;border-top:1px solid var(--s200);display:flex;flex-shrink:0}
+.m-tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:var(--s400);font-size:9px;font-weight:600;transition:color 0.15s}
+.m-tab.active{color:var(--brand)}
+.m-tab i{font-size:20px}
+
+/* WB detail mobile */
+.wb-dh{background:var(--s900);padding:14px 16px 12px;flex-shrink:0}
+.wdh-back{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.55);font-size:11.5px;cursor:pointer;margin-bottom:10px}
+.wdh-nr{color:rgba(255,255,255,0.45);font-size:10.5px;font-weight:600;font-family:monospace}
+.wdh-title{color:white;font-size:14.5px;font-weight:700;margin-top:2px;line-height:1.2}
+.wdh-klant{color:rgba(255,255,255,0.6);font-size:11.5px;margin-top:3px}
+.action-bar{padding:11px 13px;background:white;border-bottom:1px solid var(--s200);flex-shrink:0}
+.ab-btn{width:100%;padding:12px;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;display:flex;align-items:center;justify-content:center;gap:7px;font-family:var(--font);transition:all 0.15s}
+.ab-btn.start{background:var(--brand);color:white}
+.ab-btn.sign{background:var(--in);color:white}
+.ab-btn.done{background:var(--uit-bg);color:var(--uit-dark);border:1.5px solid var(--uit-border);cursor:default}
+.ab-btn:active{opacity:0.9;transform:scale(0.99)}
+.dtabs{display:flex;background:white;border-bottom:1px solid var(--s200);flex-shrink:0}
+.dtab{flex:1;padding:8px 3px;text-align:center;font-size:11px;color:var(--s400);cursor:pointer;border-bottom:2px solid transparent;font-weight:500}
+.dtab.active{color:var(--brand);border-bottom-color:var(--brand);font-weight:700}
+.dbadge{display:inline-block;background:var(--s100);color:var(--s500);font-size:9px;padding:0 4px;border-radius:6px;margin-left:1px;vertical-align:1px}
+.dtab.active .dbadge{background:var(--brand-light);color:var(--brand)}
+.dcontent{flex:1;overflow-y:auto}
+.dc-card{background:white;border-radius:9px;border:1px solid var(--s200);overflow:hidden;margin:9px 12px}
+.dc-row{display:flex;align-items:center;gap:9px;padding:9px 11px;border-bottom:1px solid var(--s100)}
+.dc-row:last-child{border-bottom:none}
+.dc-icon{width:28px;height:28px;border-radius:7px;background:var(--s100);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--s500);font-size:14px}
+.dc-lbl{font-size:10.5px;color:var(--s400)}
+.dc-val{font-size:12px;font-weight:500;color:var(--s800)}
+.dc-action{margin-left:auto;padding:4px 9px;border-radius:6px;background:var(--brand);color:white;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:var(--font)}
+.mat-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-bottom:1px solid var(--s100);cursor:pointer}
+.mat-item:last-child{border-bottom:none}
+.mat-check{width:19px;height:19px;border-radius:5px;border:1.5px solid var(--s300);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.mat-check.checked{background:var(--uit);border-color:var(--uit)}
+.mat-check.checked i{color:white;font-size:11px}
+.mat-name{font-size:12px;color:var(--s800);flex:1}
+.mat-qty{font-size:11px;color:var(--s400);font-variant-numeric:tabular-nums}
+.mat-add{margin:8px 12px;padding:9px;border-radius:7px;border:1.5px dashed var(--s300);background:white;color:var(--s500);font-size:12px;font-weight:500;cursor:pointer;text-align:center;display:flex;align-items:center;justify-content:center;gap:5px;font-family:var(--font)}
+.note-item{padding:9px 12px;border-bottom:1px solid var(--s100)}
+.note-author{display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.note-av{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:white;flex-shrink:0}
+.note-name{font-size:11px;font-weight:600;color:var(--s700)}
+.note-time-lbl{font-size:10px;color:var(--s400);margin-left:auto}
+.note-text{font-size:12px;color:var(--s600);line-height:1.4}
+.note-ia{padding:9px 12px;border-top:1px solid var(--s200);background:var(--s50)}
+.note-ia textarea{width:100%;border:1px solid var(--s200);border-radius:7px;padding:7px 9px;font-size:12px;color:var(--s800);background:white;resize:none;height:54px;font-family:var(--font)}
+.note-ia textarea:focus{outline:none;border-color:var(--brand)}
+.note-sub{margin-top:5px;padding:6px 12px;background:var(--brand);color:white;border:none;border-radius:7px;font-size:11.5px;font-weight:600;cursor:pointer;float:right;font-family:var(--font)}
+.locked-banner{margin:9px 12px;background:var(--uit-bg);border:1px solid var(--uit-border);border-radius:9px;padding:9px 11px;display:flex;gap:7px;align-items:flex-start}
+.lb-icon{color:var(--uit);font-size:17px;flex-shrink:0;margin-top:1px}
+.lb-title{font-size:12px;font-weight:700;color:var(--uit-dark)}
+.lb-sub{font-size:10.5px;color:var(--uit);margin-top:1px}
+
+/* Sign screen */
+.sign-hdr{background:#1E3A5F;padding:14px 16px 12px;flex-shrink:0}
+.sign-body{flex:1;display:flex;flex-direction:column;padding:13px}
+.sign-lbl{font-size:10.5px;font-weight:700;color:var(--s500);text-transform:uppercase;letter-spacing:0.5px;display:block;margin-bottom:4px}
+.sign-input{width:100%;border:1px solid var(--s200);border-radius:8px;padding:8px 11px;font-size:13px;color:var(--s800);background:white;font-family:var(--font);margin-bottom:10px}
+.sign-input:focus{outline:none;border-color:var(--brand)}
+.canvas-wrap{flex:1;border:1.5px solid var(--s200);border-radius:9px;background:white;position:relative;min-height:160px;overflow:hidden}
+.canvas-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--s300);gap:5px;pointer-events:none}
+.canvas-hint i{font-size:26px}
+.canvas-hint span{font-size:11.5px}
+#sig-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.sign-legal{font-size:10px;color:var(--s400);text-align:center;padding:7px 0;line-height:1.4}
+.sign-actions{display:flex;gap:7px;margin-top:7px}
+.sign-clear{flex:1;padding:10px;border-radius:8px;border:1px solid var(--s200);background:white;color:var(--s600);font-size:12.5px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.sign-submit{flex:2;padding:10px;border-radius:8px;border:none;background:var(--brand);color:white;font-size:12.5px;font-weight:700;cursor:pointer;font-family:var(--font)}
+
+/* Afgerond screen */
+.afgerond-hdr{background:#166534;padding:14px 16px 12px;flex-shrink:0}
+
+/* Office mini */
+.office-panel{flex:1;display:flex;flex-direction:column;background:var(--s50);overflow-y:auto}
+.op-header{padding:12px 14px;background:white;border-bottom:1px solid var(--s200);flex-shrink:0}
+.op-title{font-size:13px;font-weight:700;color:var(--s800)}
+.op-sub{font-size:11px;color:var(--s400);margin-top:1px}
+.sync-badge{display:none;align-items:center;gap:4px;background:var(--uit-bg);border:1px solid var(--uit-border);color:var(--uit-dark);font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:20px;margin:7px 10px 3px;width:fit-content}
+.sync-badge i{font-size:12px;color:var(--uit)}
+.sched-mini{background:white;margin:8px;border-radius:9px;border:1px solid var(--s200);overflow:hidden}
+.smh{display:flex;background:var(--s50);border-bottom:1px solid var(--s200)}
+.smh-res{width:65px;padding:5px 7px;font-size:9.5px;font-weight:700;color:var(--s400);border-right:1px solid var(--s200);flex-shrink:0}
+.smh-col{flex:1;padding:5px 3px;text-align:center;font-size:9.5px;font-weight:600;color:var(--s400)}
+.smr{display:flex;align-items:center;border-bottom:1px solid var(--s100)}
+.smr:last-child{border-bottom:none}
+.smr-res{width:65px;padding:7px;font-size:10px;font-weight:500;color:var(--s600);flex-shrink:0;border-right:1px solid var(--s100)}
+.smr-tl{flex:1;position:relative;height:32px}
+.mini-ev{position:absolute;top:4px;bottom:4px;border-radius:3px;display:flex;align-items:center;padding:0 4px;overflow:hidden;transition:background 0.4s}
+.mini-ev span{font-size:9px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-row{display:flex;align-items:center;gap:7px;padding:7px 9px;background:white;border:1px solid var(--s200);border-radius:7px;margin:0 8px 6px}
+.wb-row-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;transition:background 0.4s}
+.wb-row-lbl{font-size:11px;font-weight:600;color:var(--s800)}
+.wb-row-sub{font-size:10px;color:var(--s400)}
+.act-feed-item{display:flex;gap:6px;padding:5px 0;border-bottom:1px solid var(--s100)}
+.act-feed-item:last-child{border-bottom:none}
+.afdot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.af-text{font-size:10.5px;color:var(--s600)}
+.af-time{font-size:9.5px;color:var(--s400)}
+
+/* Foto grid */
+.foto-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:9px 12px}
+.foto-tile{aspect-ratio:1;border-radius:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}
+.foto-tile.add{border:1.5px dashed var(--s300);background:white;color:var(--s400)}
+.foto-tile.add i{font-size:18px}
+.foto-tile.add span{font-size:9.5px;font-weight:500}
+
+/* Flow indicator (between phones) */
+.flow-col{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0 4px}
+.fi-step{display:flex;flex-direction:column;align-items:center;gap:2px}
+.fi-dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--s200);background:white;display:flex;align-items:center;justify-content:center;font-size:10.5px;color:var(--s400);font-weight:700;transition:all 0.3s}
+.fi-dot.done{background:var(--uit);border-color:var(--uit);color:white}
+.fi-dot.done i{font-size:11px}
+.fi-dot.active{background:var(--brand);border-color:var(--brand);color:white}
+.fi-lbl{font-size:9px;color:var(--s400);font-weight:500;text-align:center;max-width:44px;line-height:1.2;transition:color 0.3s}
+.fi-lbl.done{color:var(--uit)}
+.fi-lbl.active{color:var(--brand);font-weight:700}
+.fi-line{width:2px;height:16px;background:var(--s200);margin:0 auto;transition:background 0.3s}
+.fi-line.done{background:var(--uit)}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="top-nav">
+  <a class="top-logo" href="#">
+    <div class="top-logo-icon"><i class="ti ti-mountain"></i></div>
+    <span class="top-logo-text">Ceulemans Grondwerken</span>
+  </a>
+  <div class="top-spacer"></div>
+  <div class="view-toggle">
+    <button class="vt active" onclick="setView('desktop')"><i class="ti ti-device-desktop" style="font-size:13px;vertical-align:-2px;margin-right:4px"></i>Kantoor</button>
+    <button class="vt" onclick="setView('mobile')"><i class="ti ti-device-mobile" style="font-size:13px;vertical-align:-2px;margin-right:4px"></i>Veld</button>
+  </div>
+  <div class="top-user">
+    <div class="top-avatar">JV</div>
+    <span class="top-name">Jan Vanderbroeck</span>
+  </div>
+</div>
+
+<!-- DESKTOP VIEW -->
+<div class="app-shell" id="desktop-view">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="nav">
+      <div class="nav-section">
+        <div class="nav-label">Beheer</div>
+        <div class="nav-item active" onclick="switchPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+        <div class="nav-item" onclick="switchPage('planning',this)"><i class="ti ti-calendar-week"></i>Planning</div>
+        <div class="nav-item" onclick="switchPage('werkbonnen',this)"><i class="ti ti-file-text"></i>Werkbonnen<span class="nav-count">23</span></div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label">Stamdata</div>
+        <div class="nav-item" onclick="switchPage('klanten',this)"><i class="ti ti-users"></i>Klanten</div>
+        <div class="nav-item"><i class="ti ti-box"></i>Producten</div>
+        <div class="nav-item"><i class="ti ti-map-2"></i>Werven</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label">Systeem</div>
+        <div class="nav-item"><i class="ti ti-settings"></i>Instellingen</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <div class="topbar">
+        <div><div class="topbar-title">Dashboard</div><div class="topbar-sub">Maandag 26 mei 2025</div></div>
+        <div class="topbar-actions"><button class="btn primary" onclick="openDrawer('WB-2025-0147')"><i class="ti ti-plus" style="font-size:13px"></i>Nieuwe werkbon</button></div>
+      </div>
+      <div class="content">
+        <div class="dashboard-body">
+          <div class="kpi-grid">
+            <div class="kpi-card"><div class="kpi-label">Openstaand</div><div class="kpi-value">23</div><div class="kpi-sub" style="color:var(--gep)">↑ 3 vs vorige week</div></div>
+            <div class="kpi-card"><div class="kpi-label">Nog te plannen</div><div class="kpi-value" style="color:var(--nog)">7</div><div class="kpi-sub">Wacht op inplannen</div></div>
+            <div class="kpi-card"><div class="kpi-label">Uren deze week</div><div class="kpi-value">142</div><div class="kpi-sub" style="color:var(--ann)">↓ 8 t.o.v. vorig</div></div>
+            <div class="kpi-card"><div class="kpi-label">% Uitgevoerd</div><div class="kpi-value" style="color:var(--uit)">68%</div><div class="kpi-sub">Van 34 geplande WB</div></div>
+          </div>
+          <div class="dash-grid">
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="card">
+                <div class="card-header"><span class="card-title">Deze week</span><span style="font-size:11px;color:var(--s400)">26–30 mei</span></div>
+                <div class="card-body">
+                  <div class="week-bars">
+                    <div class="bar-col"><div class="bar-stack" style="height:58px"><div class="bar-seg" style="height:24px;background:var(--uit)"></div><div class="bar-seg" style="height:20px;background:var(--in)"></div><div class="bar-seg" style="height:14px;background:var(--gep)"></div></div><div class="bar-label">Ma</div><div class="bar-hours">30u</div></div>
+                    <div class="bar-col"><div class="bar-stack" style="height:68px"><div class="bar-seg" style="height:28px;background:var(--uit)"></div><div class="bar-seg" style="height:24px;background:var(--in)"></div><div class="bar-seg" style="height:16px;background:var(--gep)"></div></div><div class="bar-label">Di</div><div class="bar-hours">35u</div></div>
+                    <div class="bar-col"><div class="bar-stack" style="height:52px"><div class="bar-seg" style="height:20px;background:var(--uit)"></div><div class="bar-seg" style="height:18px;background:var(--gep)"></div><div class="bar-seg" style="height:14px;background:var(--nog)"></div></div><div class="bar-label">Wo</div><div class="bar-hours">28u</div></div>
+                    <div class="bar-col"><div class="bar-stack" style="height:62px"><div class="bar-seg" style="height:34px;background:var(--gep)"></div><div class="bar-seg" style="height:18px;background:var(--nog)"></div><div class="bar-seg" style="height:10px;background:var(--s200)"></div></div><div class="bar-label">Do</div><div class="bar-hours">32u</div></div>
+                    <div class="bar-col"><div class="bar-stack" style="height:34px"><div class="bar-seg" style="height:20px;background:var(--gep)"></div><div class="bar-seg" style="height:14px;background:var(--nog)"></div></div><div class="bar-label">Vr</div><div class="bar-hours">17u</div></div>
+                  </div>
+                  <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+                    <span style="display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--s500)"><span style="width:8px;height:8px;border-radius:2px;background:var(--uit);display:inline-block"></span>Uitgevoerd</span>
+                    <span style="display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--s500)"><span style="width:8px;height:8px;border-radius:2px;background:var(--in);display:inline-block"></span>In uitvoering</span>
+                    <span style="display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--s500)"><span style="width:8px;height:8px;border-radius:2px;background:var(--gep);display:inline-block"></span>Gepland</span>
+                    <span style="display:flex;align-items:center;gap:4px;font-size:10.5px;color:var(--s500)"><span style="width:8px;height:8px;border-radius:2px;background:var(--nog);display:inline-block"></span>Nog te plannen</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header"><span class="card-title">Vandaag</span></div>
+                <div class="card-body">
+                  <div class="today-item"><div class="today-time">07:30–12:00</div><div style="flex:1;min-width:0"><div class="today-name">Linden BV — Rioleringswerken</div><div class="today-sub">Industrielaan 8, Hasselt · T. Maes + JD 135G</div></div><span class="chip in"><span class="chip-dot"></span>In uitvoering</span></div>
+                  <div class="today-item"><div class="today-time">09:00–11:30</div><div style="flex:1;min-width:0"><div class="today-name">De Witte — Terrasaanleg</div><div class="today-sub">Kerkstraat 22, Genk · R. Peters</div></div><span class="chip gep"><span class="chip-dot"></span>Gepland</span></div>
+                  <div class="today-item"><div class="today-time">13:00–17:00</div><div style="flex:1;min-width:0"><div class="today-name">Janssen NV — Fundering parking</div><div class="today-sub">Haven 4, Beringen · Volledige ploeg</div></div><span class="chip gep"><span class="chip-dot"></span>Gepland</span></div>
+                  <div class="today-item"><div class="today-time">—</div><div style="flex:1;min-width:0"><div class="today-name">Hermans — Drainagebuis</div><div class="today-sub">Bosstraat 14, Diepenbeek</div></div><span class="chip nog"><span class="chip-dot"></span>Nog te plannen</span></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header"><span class="card-title">Uren per werker</span><span style="font-size:11px;color:var(--s400)">Afgelopen 7 dagen</span></div>
+                <div class="card-body" style="display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;align-items:center;gap:8px"><div style="width:72px;font-size:11.5px;color:var(--s600);flex-shrink:0">T. Maes</div><div style="flex:1;background:var(--s100);border-radius:3px;height:6px;overflow:hidden"><div style="width:88%;height:100%;background:var(--brand);border-radius:3px"></div></div><div style="width:30px;text-align:right;font-size:11px;color:var(--s600);font-variant-numeric:tabular-nums">44u</div></div>
+                  <div style="display:flex;align-items:center;gap:8px"><div style="width:72px;font-size:11.5px;color:var(--s600);flex-shrink:0">R. Peters</div><div style="flex:1;background:var(--s100);border-radius:3px;height:6px;overflow:hidden"><div style="width:76%;height:100%;background:var(--brand);border-radius:3px"></div></div><div style="width:30px;text-align:right;font-size:11px;color:var(--s600);font-variant-numeric:tabular-nums">38u</div></div>
+                  <div style="display:flex;align-items:center;gap:8px"><div style="width:72px;font-size:11.5px;color:var(--s600);flex-shrink:0">K. Claes</div><div style="flex:1;background:var(--s100);border-radius:3px;height:6px;overflow:hidden"><div style="width:66%;height:100%;background:var(--brand);border-radius:3px"></div></div><div style="width:30px;text-align:right;font-size:11px;color:var(--s600);font-variant-numeric:tabular-nums">33u</div></div>
+                  <div style="display:flex;align-items:center;gap:8px"><div style="width:72px;font-size:11.5px;color:var(--s600);flex-shrink:0">B. Nijs</div><div style="flex:1;background:var(--s100);border-radius:3px;height:6px;overflow:hidden"><div style="width:52%;height:100%;background:var(--brand);border-radius:3px"></div></div><div style="width:30px;text-align:right;font-size:11px;color:var(--s600);font-variant-numeric:tabular-nums">26u</div></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="card">
+                <div class="card-header"><span class="card-title">Activiteit</span></div>
+                <div class="card-body">
+                  <div class="activity-item"><div class="act-dot" style="background:var(--in)"></div><div><div class="act-text"><span class="act-bold">T. Maes</span> startte WB-2025-0147 — Linden BV</div><div class="act-time">07:32</div></div></div>
+                  <div class="activity-item"><div class="act-dot" style="background:var(--brand)"></div><div><div class="act-text"><span class="act-bold">J. Vanderbroeck</span> plande WB-2025-0149 in voor dinsdag</div><div class="act-time">Gisteren 16:45</div></div></div>
+                  <div class="activity-item"><div class="act-dot" style="background:var(--uit)"></div><div><div class="act-text"><span class="act-bold">R. Peters</span> tekende WB-2025-0145 af — De Witte</div><div class="act-time">Gisteren 15:20</div></div></div>
+                  <div class="activity-item"><div class="act-dot" style="background:var(--fac)"></div><div><div class="act-text">Factuur aangemaakt voor 3 werkbonnen (€ 4.280)</div><div class="act-time">Gisteren 10:00</div></div></div>
+                  <div class="activity-item"><div class="act-dot" style="background:var(--s300)"></div><div><div class="act-text"><span class="act-bold">K. Claes</span> voegde notitie toe aan WB-2025-0143</div><div class="act-time">Gisteren 09:15</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLANNING PAGE -->
+    <div class="page" id="page-planning" style="overflow:hidden">
+      <div class="topbar">
+        <div><div class="topbar-title">Planning</div><div class="topbar-sub">Weekoverzicht</div></div>
+        <div class="topbar-actions"><button class="btn">+ Reservering</button><button class="btn primary">+ Afspraak</button></div>
+      </div>
+      <div class="planning-layout">
+        <!-- Queue -->
+        <div class="queue-panel">
+          <div class="queue-header">
+            <div class="queue-title">Wachtrij <span style="background:var(--brand-light);color:var(--brand);font-size:10px;padding:1px 6px;border-radius:10px;margin-left:4px">7</span></div>
+            <div class="queue-sub">Nog te plannen werkbonnen</div>
+          </div>
+          <div class="queue-list" id="queue-list">
+            <div class="queue-card" draggable="true" ondragstart="dragCard(event,'WB-2025-0149')"><div class="qc-nr">WB-2025-0149</div><div class="qc-klant">Janssen Construct NV</div><div class="qc-werk">Fundering parking fase 2</div><div class="qc-footer"><span class="qc-addr">Haven 4, Beringen</span><span style="font-size:10px;color:var(--s500)">~4u</span></div></div>
+            <div class="queue-card" draggable="true" ondragstart="dragCard(event,'WB-2025-0150')"><div class="qc-nr">WB-2025-0150</div><div class="qc-klant">Hermans Thomas</div><div class="qc-werk">Drainagebuis achtertuin</div><div class="qc-footer"><span class="qc-addr">Bosstraat 14, Diepenbeek</span><span style="font-size:10px;color:var(--s500)">~2,5u</span></div></div>
+            <div class="queue-card" draggable="true" ondragstart="dragCard(event,'WB-2025-0151')"><div class="qc-nr">WB-2025-0151</div><div class="qc-klant">Gemeente Hasselt</div><div class="qc-werk">Vernieuwing voetpad Grote Markt</div><div class="qc-footer"><span class="qc-addr">Grote Markt, Hasselt</span><span style="font-size:10px;color:var(--s500)">~8u</span></div></div>
+            <div class="queue-card" draggable="true" ondragstart="dragCard(event,'WB-2025-0152')"><div class="qc-nr">WB-2025-0152</div><div class="qc-klant">Peeters & Zonen BV</div><div class="qc-werk">Cunet aanleg industrieterrein</div><div class="qc-footer"><span class="qc-addr">Industriepark 12, Genk</span><span style="font-size:10px;color:var(--s500)">~6u</span></div></div>
+            <div class="queue-card" draggable="true" ondragstart="dragCard(event,'WB-2025-0153')"><div class="qc-nr">WB-2025-0153</div><div class="qc-klant">Wouters Thomas</div><div class="qc-werk">Klinkerpad oprit</div><div class="qc-footer"><span class="qc-addr">Lindenlaan 5, Zonhoven</span><span style="font-size:10px;color:var(--s500)">~3u</span></div></div>
+          </div>
+        </div>
+        <!-- Scheduler -->
+        <div class="scheduler">
+          <div class="sched-toolbar">
+            <div class="sched-nav">
+              <div class="nav-arrow">‹</div>
+              <div class="sched-date">26–30 mei 2025</div>
+              <div class="nav-arrow">›</div>
+            </div>
+            <button class="btn" style="font-size:11.5px;padding:5px 10px">Vandaag</button>
+            <div class="view-tog"><button class="vt-b">Dag</button><button class="vt-b">3 Dagen</button><button class="vt-b active">Week</button></div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--s500);cursor:pointer"><input type="checkbox" checked style="accent-color:var(--brand);width:12px;height:12px"> WB</label>
+              <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--s500);cursor:pointer"><input type="checkbox" checked style="accent-color:var(--brand);width:12px;height:12px"> Reservering</label>
+            </div>
+          </div>
+          <div class="sched-body" id="sched-body" ondragover="event.preventDefault()" ondrop="dropOnScheduler(event)">
+            <div class="sched-grid">
+              <div class="sched-resources">
+                <div class="res-header"></div>
+                <div class="res-group-row"><span class="res-group-lbl">Mensen</span></div>
+                <div class="res-row person"><div class="res-av" style="background:#0891B2">TM</div><div><div class="res-name">T. Maes</div><div class="res-role">Kraanman</div></div></div>
+                <div class="res-row person"><div class="res-av" style="background:#7C3AED">RP</div><div><div class="res-name">R. Peters</div><div class="res-role">Grondwerker</div></div></div>
+                <div class="res-row person"><div class="res-av" style="background:#059669">KC</div><div><div class="res-name">K. Claes</div><div class="res-role">Grondwerker</div></div></div>
+                <div class="res-row person"><div class="res-av" style="background:#D97706">BN</div><div><div class="res-name">B. Nijs</div><div class="res-role">Chauffeur</div></div></div>
+                <div class="res-group-row"><span class="res-group-lbl">Materieel</span></div>
+                <div class="res-row machine"><div class="res-av" style="background:var(--s500);border-radius:5px">JD</div><div><div class="res-name">JD 135G</div><div class="res-role">Excavator</div></div></div>
+                <div class="res-row machine"><div class="res-av" style="background:var(--s500);border-radius:5px">VB</div><div><div class="res-name">Vrachtwagen 1</div><div class="res-role">Kippertruck</div></div></div>
+              </div>
+              <div class="sched-times">
+                <div class="time-axis">
+                  <div class="time-tick" style="left:0">07:00</div>
+                  <div class="time-tick" style="left:16.67%">09:00</div>
+                  <div class="time-tick" style="left:33.33%">11:00</div>
+                  <div class="time-tick" style="left:50%">13:00</div>
+                  <div class="time-tick" style="left:66.67%">15:00</div>
+                  <div class="time-tick" style="left:83.33%">17:00</div>
+                  <div class="time-tick" style="left:100%;transform:translateX(-100%)">19:00</div>
+                </div>
+                <div id="sched-rows">
+                  <div class="time-row group"></div>
+                  <div class="time-row person" id="row-tm"><div class="lunch-shade" style="left:41.67%;width:8.33%"></div><div class="sched-event" id="ev-tm-linden" style="left:0%;width:41.67%;top:6px;bottom:6px;background:var(--in)" onclick="openDrawer('WB-2025-0147')"><div class="ev-dot"></div><div class="ev-text">Linden BV</div><div class="ev-time">07:00–12:00</div></div><div class="sched-event" style="left:54.17%;width:29.17%;top:6px;bottom:6px;background:var(--gep)" onclick="openDrawer('WB-2025-0148')"><div class="ev-dot"></div><div class="ev-text">Janssen NV</div><div class="ev-time">13:30–17:00</div></div></div>
+                  <div class="time-row person" id="row-rp"><div class="lunch-shade" style="left:41.67%;width:8.33%"></div><div class="sched-event" style="left:8.33%;width:29.17%;top:6px;bottom:6px;background:var(--gep)" onclick="openDrawer('WB-2025-0146')"><div class="ev-dot"></div><div class="ev-text">De Witte</div><div class="ev-time">09:00–11:30</div></div><div class="sched-event" style="left:54.17%;width:29.17%;top:6px;bottom:6px;background:var(--gep)"><div class="ev-dot"></div><div class="ev-text">Janssen NV</div><div class="ev-time">13:30–17:00</div></div></div>
+                  <div class="time-row person" id="row-kc"><div class="lunch-shade" style="left:41.67%;width:8.33%"></div></div>
+                  <div class="time-row person" id="row-bn"><div class="lunch-shade" style="left:41.67%;width:8.33%"></div><div class="sched-event" id="ev-bn-linden" style="left:0%;width:41.67%;top:6px;bottom:6px;background:var(--in)" onclick="openDrawer('WB-2025-0147')"><div class="ev-dot"></div><div class="ev-text">Linden BV</div><div class="ev-time">07:00–12:00</div></div></div>
+                  <div class="time-row group"></div>
+                  <div class="time-row machine" id="row-jd"><div class="lunch-shade" style="left:41.67%;width:8.33%"></div><div class="sched-event" id="ev-jd-linden" style="left:0%;width:41.67%;top:5px;bottom:5px;background:var(--in)"><div class="ev-dot"></div><div class="ev-text">JD 135G — Linden</div><div class="ev-time">07:00–12:00</div></div></div>
+                  <div class="time-row machine" id="row-vb"><div class="lunch-shade" style="left:41.67%;width:8.33%"></div><div class="sched-event" style="left:54.17%;width:29.17%;top:5px;bottom:5px;background:var(--gep)"><div class="ev-dot"></div><div class="ev-text">Janssen NV</div><div class="ev-time">13:30–17:00</div></div></div>
+                </div>
+                <div class="now-line" style="left:18.75%;top:34px"><div class="now-circle"></div></div>
+                <div class="drop-zone" id="drop-zone"><span class="drop-badge">Loslaten om in te plannen</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WERKBONNEN PAGE -->
+    <div class="page" id="page-werkbonnen">
+      <div class="topbar">
+        <div><div class="topbar-title">Werkbonnen</div><div class="topbar-sub">23 actieve werkbonnen</div></div>
+        <div class="topbar-actions"><button class="btn primary" onclick="openDrawer('WB-2025-0147')"><i class="ti ti-plus" style="font-size:13px"></i>Nieuwe werkbon</button></div>
+      </div>
+      <div class="tab-nav">
+        <div class="tab active" onclick="switchTab(this)">Alle<span class="tab-badge">47</span></div>
+        <div class="tab" onclick="switchTab(this)">Nog te plannen<span class="tab-badge">7</span></div>
+        <div class="tab" onclick="switchTab(this)">Gepland<span class="tab-badge">9</span></div>
+        <div class="tab" onclick="switchTab(this)">In uitvoering<span class="tab-badge">3</span></div>
+        <div class="tab" onclick="switchTab(this)">Uitgevoerd<span class="tab-badge">14</span></div>
+        <div class="tab" onclick="switchTab(this)">Gefactureerd<span class="tab-badge">14</span></div>
+      </div>
+      <div class="content">
+        <div class="search-bar"><input class="search-input" type="text" placeholder="Zoek werkbon, klant, stad..."><button class="btn">Filter</button></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nummer</th><th>Klant / Werf</th><th>Werkzaamheden</th><th>Datum</th><th>Status</th><th style="text-align:right">Totaal excl. BTW</th></tr></thead>
+            <tbody>
+              <tr onclick="openDrawer('WB-2025-0147')"><td><span class="wb-nr">WB-2025-0147</span></td><td><div class="wb-klant">Linden Bouw BV</div><div class="wb-werf">Industrielaan 8, Hasselt</div></td><td>Rioleringswerken fase 1</td><td style="color:var(--s500)">26 mei 2025</td><td><span class="chip in"><span class="chip-dot"></span>In uitvoering</span></td><td class="wb-totaal">€ 3.840,00</td></tr>
+              <tr onclick="openDrawer('WB-2025-0146')"><td><span class="wb-nr">WB-2025-0146</span></td><td><div class="wb-klant">De Witte Gezin</div><div class="wb-werf">Kerkstraat 22, Genk</div></td><td>Terrasaanleg met klinkers</td><td style="color:var(--s500)">26 mei 2025</td><td><span class="chip gep"><span class="chip-dot"></span>Gepland</span></td><td class="wb-totaal">€ 1.240,00</td></tr>
+              <tr onclick="openDrawer('WB-2025-0145')"><td><span class="wb-nr">WB-2025-0145</span></td><td><div class="wb-klant">De Witte Gezin</div><div class="wb-werf">Kerkstraat 22, Genk</div></td><td>Oprit nivelleringswerken</td><td style="color:var(--s500)">23 mei 2025</td><td><span class="chip uit"><span class="chip-dot"></span>Uitgevoerd</span></td><td class="wb-totaal">€ 2.100,00</td></tr>
+              <tr onclick="openDrawer('WB-2025-0144')"><td><span class="wb-nr">WB-2025-0144</span></td><td><div class="wb-klant">Peeters & Zonen BV</div><div class="wb-werf">Industriepark 12, Genk</div></td><td>Cunet aanleg</td><td style="color:var(--s500)">22 mei 2025</td><td><span class="chip fac"><span class="chip-dot"></span>Gefactureerd</span></td><td class="wb-totaal">€ 6.720,00</td></tr>
+              <tr onclick="openDrawer('WB-2025-0149')"><td><span class="wb-nr">WB-2025-0149</span></td><td><div class="wb-klant">Janssen Construct NV</div><div class="wb-werf">Haven 4, Beringen</div></td><td>Fundering parking fase 2</td><td style="color:var(--s500)">—</td><td><span class="chip nog"><span class="chip-dot"></span>Nog te plannen</span></td><td class="wb-totaal">€ 4.560,00</td></tr>
+              <tr onclick="openDrawer('WB-2025-0150')"><td><span class="wb-nr">WB-2025-0150</span></td><td><div class="wb-klant">Hermans Thomas</div><div class="wb-werf">Bosstraat 14, Diepenbeek</div></td><td>Drainagebuis achtertuin</td><td style="color:var(--s500)">—</td><td><span class="chip nog"><span class="chip-dot"></span>Nog te plannen</span></td><td class="wb-totaal">€ 680,00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- KLANTEN PAGE -->
+    <div class="page" id="page-klanten">
+      <div class="topbar"><div><div class="topbar-title">Klanten</div><div class="topbar-sub">48 klanten</div></div><div class="topbar-actions"><button class="btn primary">+ Nieuwe klant</button></div></div>
+      <div class="tab-nav"><div class="tab active" onclick="switchTab(this)">Alle<span class="tab-badge">48</span></div><div class="tab" onclick="switchTab(this)">Bedrijf<span class="tab-badge">22</span></div><div class="tab" onclick="switchTab(this)">Particulier<span class="tab-badge">19</span></div><div class="tab" onclick="switchTab(this)">Prospecten<span class="tab-badge">7</span></div></div>
+      <div class="content"><div class="table-wrap"><table><thead><tr><th>Naam</th><th>Contact</th><th>Werfadres</th><th>Type</th><th># WB</th><th>Omzet</th></tr></thead><tbody>
+        <tr><td><div class="wb-klant">Linden Bouw BV</div><div class="wb-werf">BTW BE 0456.789.012</div></td><td>M. Linden<br><span style="font-size:11px;color:var(--s400)">0471 23 45 67</span></td><td>Industrielaan 8, 3500 Hasselt</td><td><span class="chip in">Bedrijf</span></td><td style="text-align:center;font-variant-numeric:tabular-nums">8</td><td style="font-variant-numeric:tabular-nums;font-weight:600">€ 28.400</td></tr>
+        <tr><td><div class="wb-klant">De Witte Gezin</div><div class="wb-werf">Particulier</div></td><td>F. De Witte<br><span style="font-size:11px;color:var(--s400)">0495 67 89 01</span></td><td>Kerkstraat 22, 3600 Genk</td><td><span class="chip gep">Particulier</span></td><td style="text-align:center;font-variant-numeric:tabular-nums">3</td><td style="font-variant-numeric:tabular-nums;font-weight:600">€ 5.640</td></tr>
+        <tr><td><div class="wb-klant">Peeters & Zonen BV</div><div class="wb-werf">BTW BE 0789.012.345</div></td><td>J. Peeters<br><span style="font-size:11px;color:var(--s400)">011 45 67 89</span></td><td>Industriepark 12, 3600 Genk</td><td><span class="chip in">Bedrijf</span></td><td style="text-align:center;font-variant-numeric:tabular-nums">12</td><td style="font-variant-numeric:tabular-nums;font-weight:600">€ 67.200</td></tr>
+      </tbody></table></div></div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /desktop -->
+
+<!-- Drawer -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div><div class="drawer-nr" id="d-nr">WB-2025-0147</div><div class="drawer-title" id="d-title">Rioleringswerken fase 1</div></div>
+    <div id="d-status"></div>
+    <div class="drawer-close" onclick="closeDrawer()"><i class="ti ti-x"></i></div>
+  </div>
+  <div class="drawer-body">
+    <div><div class="ds-label">Klant & werf</div>
+      <div class="klant-card"><div class="klant-av" style="background:var(--brand)" id="d-av">LB</div><div class="klant-info"><div class="klant-name" id="d-klant">Linden Bouw BV</div><div class="klant-addr" id="d-addr">Industrielaan 8, 3500 Hasselt</div></div><div class="klant-actions"><div class="icon-btn"><i class="ti ti-map-pin"></i></div><div class="icon-btn"><i class="ti ti-phone"></i></div><div class="icon-btn"><i class="ti ti-mail"></i></div></div></div>
+    </div>
+    <div><div class="ds-label">Werkzaamheden</div><div style="background:var(--s50);border:1px solid var(--s200);border-radius:6px;padding:9px 11px;font-size:12.5px;color:var(--s700);line-height:1.5" id="d-werk">Rioleringswerken fase 1</div></div>
+    <div><div class="ds-label">Productlijnen</div>
+      <table class="line-table"><thead><tr><th>Product</th><th>Qty</th><th>Prijs</th><th style="text-align:right">Totaal</th></tr></thead>
+      <tbody id="d-lines"><tr><td style="font-weight:500">Grondwerken uren</td><td>8</td><td>€ 75,00</td><td style="text-align:right;font-variant-numeric:tabular-nums">€ 600,00</td></tr><tr><td style="font-weight:500">Machinekosten excavator</td><td>8</td><td>€ 120,00</td><td style="text-align:right;font-variant-numeric:tabular-nums">€ 960,00</td></tr><tr><td style="font-weight:500">DWA buis Ø200 PVC</td><td>24 m</td><td>€ 28,00</td><td style="text-align:right;font-variant-numeric:tabular-nums">€ 672,00</td></tr><tr><td style="font-weight:500">Zand bedding</td><td>4 ton</td><td>€ 32,00</td><td style="text-align:right;font-variant-numeric:tabular-nums">€ 128,00</td></tr><tr><td style="font-weight:500">Teelaarde</td><td>6 m³</td><td>€ 80,00</td><td style="text-align:right;font-variant-numeric:tabular-nums">€ 480,00</td></tr></tbody></table>
+    </div>
+    <div class="totals-block"><div class="total-row"><span>Subtotaal excl. BTW</span><span id="d-excl">€ 3.840,00</span></div><div class="total-row"><span>BTW 21%</span><span>€ 806,40</span></div><div class="total-row bold"><span>Totaal incl. BTW</span><span id="d-incl">€ 4.646,40</span></div></div>
+    <div><div class="ds-label">Planning</div>
+      <div class="plan-block" id="d-plan"><div style="font-size:10px;color:var(--gep);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px">Vandaag</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--s700)"><div class="res-av" style="background:#0891B2;width:22px;height:22px;font-size:8px">TM</div>T. Maes — 07:00 tot 12:00</div><div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--s700);margin-top:3px"><div class="res-av" style="background:var(--s500);border-radius:4px;width:22px;height:22px;font-size:8px">JD</div>JD 135G — 07:00 tot 12:00</div></div>
+    </div>
+    <div id="d-sig" style="display:none"><div class="ds-label">Handtekening</div><div class="sig-block"><div class="sig-name" id="d-signame">F. Linden</div><div class="sig-date">Getekend op 26/05/2025 om 11:58</div></div></div>
+  </div>
+  <div class="drawer-footer">
+    <button class="btn"><i class="ti ti-file-download" style="font-size:13px"></i>PDF</button>
+    <button class="btn"><i class="ti ti-send" style="font-size:13px"></i>Verstuur</button>
+    <button class="btn primary" id="d-action">Factureren</button>
+  </div>
+</div>
+
+<!-- MOBILE VIEW -->
+<div class="mobile-view" id="mobile-view">
+  <!-- Phone 1: field worker -->
+  <div class="phone-wrap">
+    <div class="phone-label">T. Maes — veldwerker</div>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="phone-status"><span class="phone-time">09:15</span><div class="phone-icons"><i class="ti ti-wifi" style="font-size:12px"></i><span>87%</span></div></div>
+
+        <!-- Vandaag screen -->
+        <div class="mscreen active" id="ms-vandaag">
+          <div class="hero-hdr"><div class="hero-greet">Goedemorgen</div><div class="hero-name">T. Maes</div><div class="hero-kpis"><div class="hero-kpi"><div class="hk-val">2</div><div class="hk-lbl">Blokken vandaag</div></div><div class="hero-kpi"><div class="hk-val">8,5u</div><div class="hk-lbl">Geplande uren</div></div></div></div>
+          <div class="mscroll">
+            <div class="msec-label">Vandaag — maandag 26 mei</div>
+            <div class="ev-card hl" onclick="mGoTo('ms-detail')">
+              <div class="ev-bar" style="background:var(--in)"></div>
+              <div class="ev-body"><div class="ev-top"><span class="ev-time-lbl">07:00–12:00</span><span class="chip in"><span class="chip-dot"></span>In uitvoering</span></div><div class="ev-klant">Linden Bouw BV</div><div class="ev-werk">Rioleringswerken fase 1 — ø200 DWA</div><div class="ev-werf"><i class="ti ti-map-pin" style="font-size:11px"></i>Industrielaan 8, Hasselt</div></div>
+              <div class="ev-foot"><div class="ev-btn"><i class="ti ti-route" style="font-size:12px"></i> Route</div><div class="ev-btn primary" onclick="event.stopPropagation();mGoTo('ms-detail')">Openen</div></div>
+            </div>
+            <div class="ev-card">
+              <div class="ev-bar" style="background:var(--gep)"></div>
+              <div class="ev-body"><div class="ev-top"><span class="ev-time-lbl">13:30–17:00</span><span class="chip gep"><span class="chip-dot"></span>Gepland</span></div><div class="ev-klant">Janssen NV</div><div class="ev-werk">Fundering parking fase 1</div><div class="ev-werf"><i class="ti ti-map-pin" style="font-size:11px"></i>Vrijheidslaan 1, Beringen</div></div>
+              <div class="ev-foot"><div class="ev-btn"><i class="ti ti-route" style="font-size:12px"></i> Route</div><div class="ev-btn primary">Openen</div></div>
+            </div>
+            <div class="msec-label">Recent afgerond</div>
+            <div class="recent-item"><div class="ri-dot"></div><div class="ri-info"><div class="ri-name">De Witte — Oprit nivelleringswerken</div><div class="ri-sub">WB-2025-0145 · Genk</div></div><div class="ri-time">Gisteren</div></div>
+            <div class="recent-item"><div class="ri-dot"></div><div class="ri-info"><div class="ri-name">Peeters BV — Cunet aanleg</div><div class="ri-sub">WB-2025-0144 · Genk</div></div><div class="ri-time">22 mei</div></div>
+            <div style="height:10px"></div>
+          </div>
+          <div class="m-tab-bar"><div class="m-tab active"><i class="ti ti-home"></i>Vandaag</div><div class="m-tab" onclick="mGoTo('ms-list')"><i class="ti ti-file-text"></i>Werkbonnen</div><div class="m-tab"><i class="ti ti-user"></i>Profiel</div></div>
+        </div>
+
+        <!-- WB detail screen -->
+        <div class="mscreen" id="ms-detail">
+          <div class="wb-dh"><div class="wdh-back" onclick="mGoTo('ms-vandaag')"><i class="ti ti-arrow-left"></i>Vandaag</div><div class="wdh-nr">WB-2025-0147</div><div class="wdh-title">Rioleringswerken fase 1</div><div class="wdh-klant">Linden Bouw BV · Industrielaan 8, Hasselt</div></div>
+          <div class="action-bar"><button class="ab-btn start" id="mob-action-btn" onclick="mHandleAction()"><i class="ti ti-player-play" id="mob-action-icon"></i><span id="mob-action-lbl">Start tijdregistratie</span></button></div>
+          <div class="dtabs">
+            <div class="dtab active" onclick="mSwitchTab(this,'mdt-details')">Details</div>
+            <div class="dtab" onclick="mSwitchTab(this,'mdt-mat')">Materiaal<span class="dbadge" id="mat-count">5</span></div>
+            <div class="dtab" onclick="mSwitchTab(this,'mdt-notes')">Notities<span class="dbadge" id="note-count">1</span></div>
+            <div class="dtab" onclick="mSwitchTab(this,'mdt-fotos')">Foto's<span class="dbadge" id="foto-count">0</span></div>
+          </div>
+          <div class="dcontent">
+            <div id="mdt-details">
+              <div id="mob-locked-banner" style="display:none" class="locked-banner"><i class="ti ti-circle-check lb-icon"></i><div><div class="lb-title">Werkbon afgerond en getekend</div><div class="lb-sub" id="mob-locked-sub">Getekend door F. Linden</div></div></div>
+              <div class="dc-card"><div class="dc-row"><div class="dc-icon"><i class="ti ti-map-pin"></i></div><div><div class="dc-lbl">Werfadres</div><div class="dc-val">Industrielaan 8, 3500 Hasselt</div></div><button class="dc-action">Route</button></div><div class="dc-row"><div class="dc-icon"><i class="ti ti-phone"></i></div><div><div class="dc-lbl">Klant</div><div class="dc-val">M. Linden · 0471 23 45 67</div></div><button class="dc-action">Bel</button></div></div>
+              <div class="dc-card"><div class="dc-row"><div class="dc-icon"><i class="ti ti-clock"></i></div><div><div class="dc-lbl">Planning</div><div class="dc-val">07:00–12:00 · T. Maes + JD 135G</div></div></div></div>
+              <div class="dc-card"><div class="dc-row" style="align-items:flex-start"><div class="dc-icon" style="margin-top:1px"><i class="ti ti-notes"></i></div><div><div class="dc-lbl">Kantooropmerkingen</div><div class="dc-val" style="line-height:1.4">Aanleg DWA ø200. Let op nutsleidingen links van rijbaan.</div></div></div></div>
+              <div style="height:14px"></div>
+            </div>
+            <div id="mdt-mat" style="display:none">
+              <div id="mat-locked-banner" style="display:none" class="locked-banner"><i class="ti ti-lock lb-icon"></i><div><div class="lb-title">Getekend — materiaal vergrendeld</div></div></div>
+              <div class="dc-card" id="mat-list">
+                <div class="mat-item" onclick="toggleMat(this)"><div class="mat-check checked"><i class="ti ti-check"></i></div><div class="mat-name">Grondwerken uren</div><div class="mat-qty">8 u</div></div>
+                <div class="mat-item" onclick="toggleMat(this)"><div class="mat-check checked"><i class="ti ti-check"></i></div><div class="mat-name">Machinekosten JD 135G</div><div class="mat-qty">8 u</div></div>
+                <div class="mat-item" onclick="toggleMat(this)"><div class="mat-check"><i class="ti ti-check"></i></div><div class="mat-name">DWA buis Ø200 PVC</div><div class="mat-qty">24 m</div></div>
+                <div class="mat-item" onclick="toggleMat(this)"><div class="mat-check"><i class="ti ti-check"></i></div><div class="mat-name">Zand bedding</div><div class="mat-qty">4 ton</div></div>
+                <div class="mat-item" onclick="toggleMat(this)"><div class="mat-check"><i class="ti ti-check"></i></div><div class="mat-name">Teelaarde aanvulling</div><div class="mat-qty">6 m³</div></div>
+              </div>
+              <div class="mat-add" id="mat-add-btn" onclick="addMatItem()"><i class="ti ti-plus" style="font-size:13px"></i>Extra materiaal toevoegen</div>
+              <div style="height:10px"></div>
+            </div>
+            <div id="mdt-notes" style="display:none">
+              <div class="dc-card" id="notes-list">
+                <div class="note-item"><div class="note-author"><div class="note-av" style="background:#7C3AED">JV</div><span class="note-name">J. Vanderbroeck</span><span class="note-time-lbl">16:30</span></div><div class="note-text">Let op nutsleidingen links van de rijbaan — gemeente markering aanwezig.</div></div>
+              </div>
+              <div class="note-ia" id="note-input-area"><textarea id="note-ta" placeholder="Voeg notitie toe..."></textarea><button class="note-sub" onclick="addNote()">Toevoegen</button><div style="clear:both"></div></div>
+              <div style="height:10px"></div>
+            </div>
+            <div id="mdt-fotos" style="display:none">
+              <div class="foto-grid" id="foto-grid">
+                <div class="foto-tile add" onclick="addFoto()"><i class="ti ti-camera"></i><span>Foto</span></div>
+              </div>
+              <div style="height:10px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tekenen screen -->
+        <div class="mscreen" id="ms-sign">
+          <div class="sign-hdr"><div class="wdh-back" onclick="mGoTo('ms-detail')"><i class="ti ti-arrow-left"></i>Werkbon</div><div class="wdh-nr">WB-2025-0147 — Handtekening</div><div class="wdh-title" style="font-size:14px">Klant laten tekenen</div></div>
+          <div class="sign-body">
+            <label class="sign-lbl">Naam ondertekenaar</label>
+            <input type="text" class="sign-input" id="sign-name-input" value="F. Linden">
+            <div class="canvas-wrap" id="canvas-wrap">
+              <div class="canvas-hint" id="canvas-hint"><i class="ti ti-signature"></i><span>Hier tekenen</span></div>
+              <canvas id="sig-canvas"></canvas>
+            </div>
+            <p class="sign-legal">Door te tekenen bevestigt u dat de uitgevoerde werken correct en volledig zijn uitgevoerd conform de werkbon.</p>
+            <div class="sign-actions">
+              <button class="sign-clear" onclick="clearCanvas()">Wissen</button>
+              <button class="sign-submit" onclick="submitSign()">Werkbon afronden</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Afgerond screen -->
+        <div class="mscreen" id="ms-done">
+          <div class="afgerond-hdr"><div class="wdh-back" onclick="mGoTo('ms-vandaag')"><i class="ti ti-arrow-left"></i>Vandaag</div><div class="wdh-nr">WB-2025-0147</div><div class="wdh-title" style="font-size:14px">Werkbon afgerond</div></div>
+          <div class="mscroll">
+            <div style="padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:10px">
+              <div style="width:56px;height:56px;border-radius:50%;background:var(--uit-bg);border:2px solid var(--uit-border);display:flex;align-items:center;justify-content:center;margin-top:6px"><i class="ti ti-circle-check" style="font-size:28px;color:var(--uit)"></i></div>
+              <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:var(--s900)">Werkbon getekend</div><div style="font-size:11.5px;color:var(--s500);margin-top:3px">WB-2025-0147 afgerond en verzonden naar kantoor</div></div>
+            </div>
+            <div class="dc-card" style="margin:0 12px">
+              <div class="dc-row"><div class="dc-icon" style="background:var(--uit-bg)"><i class="ti ti-writing" style="color:var(--uit)"></i></div><div><div class="dc-lbl">Getekend door</div><div class="dc-val" id="done-signer">F. Linden</div></div></div>
+              <div class="dc-row"><div class="dc-icon" style="background:var(--uit-bg)"><i class="ti ti-clock" style="color:var(--uit)"></i></div><div><div class="dc-lbl">Afgerond om</div><div class="dc-val" id="done-time">11:58</div></div></div>
+              <div class="dc-row"><div class="dc-icon" style="background:var(--uit-bg)"><i class="ti ti-coins" style="color:var(--uit)"></i></div><div><div class="dc-lbl">Totaal excl. BTW</div><div class="dc-val">€ 3.840,00</div></div></div>
+            </div>
+            <div style="margin:10px 12px;padding:9px 11px;background:var(--in-bg);border:1px solid #BFDBFE;border-radius:8px;display:flex;gap:7px;align-items:center"><i class="ti ti-refresh" style="font-size:15px;color:var(--in)"></i><span style="font-size:11.5px;color:#1E40AF;font-weight:500">Planning bijgewerkt — kantoor gesynchroniseerd</span></div>
+            <div style="padding:12px"><button class="ab-btn done"><i class="ti ti-circle-check"></i>Werkbon afgesloten</button></div>
+            <div style="height:10px"></div>
+          </div>
+        </div>
+
+        <!-- WB list -->
+        <div class="mscreen" id="ms-list">
+          <div style="padding:13px 14px 9px;background:white;border-bottom:1px solid var(--s200);flex-shrink:0"><div style="font-size:15px;font-weight:700;color:var(--s900)">Mijn werkbonnen</div></div>
+          <div class="mscroll">
+            <div class="msec-label">Actief</div>
+            <div class="ev-card hl" onclick="mGoTo('ms-detail')"><div class="ev-bar" style="background:var(--in)"></div><div class="ev-body"><div class="ev-top"><span class="ev-time-lbl">Vandaag</span><span class="chip in"><span class="chip-dot"></span>In uitvoering</span></div><div class="ev-klant">Linden Bouw BV</div><div class="ev-werk">WB-2025-0147 · Rioleringswerken</div></div></div>
+            <div class="ev-card"><div class="ev-bar" style="background:var(--gep)"></div><div class="ev-body"><div class="ev-top"><span class="ev-time-lbl">Vandaag 13:30</span><span class="chip gep"><span class="chip-dot"></span>Gepland</span></div><div class="ev-klant">Janssen NV</div><div class="ev-werk">WB-2025-0148 · Fundering parking</div></div></div>
+            <div class="msec-label">Afgerond</div>
+            <div class="ev-card"><div class="ev-bar" style="background:var(--uit)"></div><div class="ev-body"><div class="ev-top"><span class="ev-time-lbl">Gisteren</span><span class="chip uit"><span class="chip-dot"></span>Uitgevoerd</span></div><div class="ev-klant">De Witte Gezin</div><div class="ev-werk">WB-2025-0145 · Oprit</div></div></div>
+            <div style="height:10px"></div>
+          </div>
+          <div class="m-tab-bar"><div class="m-tab" onclick="mGoTo('ms-vandaag')"><i class="ti ti-home"></i>Vandaag</div><div class="m-tab active"><i class="ti ti-file-text"></i>Werkbonnen</div><div class="m-tab"><i class="ti ti-user"></i>Profiel</div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Flow indicator -->
+  <div class="flow-col" id="flow-col">
+    <div class="fi-step"><div class="fi-dot active" id="fi1">1</div><div class="fi-lbl active" id="fl1">Start</div></div>
+    <div class="fi-line" id="fl12"></div>
+    <div class="fi-step"><div class="fi-dot" id="fi2">2</div><div class="fi-lbl" id="fl2">Uitvoer</div></div>
+    <div class="fi-line" id="fl23"></div>
+    <div class="fi-step"><div class="fi-dot" id="fi3">3</div><div class="fi-lbl" id="fl3">Tekenen</div></div>
+    <div class="fi-line" id="fl34"></div>
+    <div class="fi-step"><div class="fi-dot" id="fi4">4</div><div class="fi-lbl" id="fl4">Klaar</div></div>
+    <div style="font-size:9px;color:var(--s400);text-align:center;margin-top:10px;line-height:1.4;max-width:52px">Real-time sync</div>
+  </div>
+
+  <!-- Phone 2: office planning -->
+  <div class="phone-wrap">
+    <div class="phone-label">Kantoor — planning live</div>
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="phone-status"><span class="phone-time">09:15</span><div class="phone-icons"><i class="ti ti-wifi" style="font-size:12px"></i><span>Kantoor</span></div></div>
+        <div class="office-panel">
+          <div class="op-header"><div class="op-title">Planning vandaag</div><div class="op-sub" id="office-sub">Live — 2 actieve werkers</div></div>
+          <div class="sync-badge" id="sync-badge"><i class="ti ti-refresh"></i><span>WB-2025-0147 bijgewerkt</span></div>
+          <div class="sched-mini">
+            <div class="smh"><div class="smh-res">Werker</div><div class="smh-col">07:00</div><div class="smh-col">11:00</div><div class="smh-col">15:00</div><div class="smh-col">19:00</div></div>
+            <div class="smr"><div class="smr-res">T. Maes</div><div class="smr-tl"><div class="mini-ev" id="off-tm" style="left:0%;width:42%;background:var(--in)"><span>Linden</span></div><div class="mini-ev" style="left:55%;width:30%;background:var(--gep)"><span>Janssen</span></div></div></div>
+            <div class="smr"><div class="smr-res">R. Peters</div><div class="smr-tl"><div class="mini-ev" style="left:9%;width:23%;background:var(--gep)"><span>De Witte</span></div><div class="mini-ev" style="left:55%;width:30%;background:var(--gep)"><span>Janssen</span></div></div></div>
+            <div class="smr"><div class="smr-res">K. Claes</div><div class="smr-tl" id="kc-tl"></div></div>
+            <div class="smr"><div class="smr-res" style="font-size:9px">JD 135G</div><div class="smr-tl"><div class="mini-ev" id="off-jd" style="left:0%;width:42%;background:var(--in)"><span>Linden</span></div></div></div>
+          </div>
+          <div style="padding:8px 10px 4px"><div style="font-size:11px;font-weight:700;color:var(--s700);margin-bottom:5px">Status werkbonnen</div>
+            <div class="wb-row"><div class="wb-row-dot" id="off-dot" style="background:var(--in)"></div><div><div class="wb-row-lbl">WB-2025-0147 · Linden BV</div><div class="wb-row-sub" id="off-sub2">In uitvoering · T. Maes</div></div><span class="chip in" id="off-chip"><span class="chip-dot"></span><span id="off-chip-txt">In uitvoering</span></span></div>
+            <div class="wb-row"><div class="wb-row-dot" style="background:var(--gep)"></div><div><div class="wb-row-lbl">WB-2025-0148 · Janssen NV</div><div class="wb-row-sub">Gepland · 13:30</div></div><span class="chip gep"><span class="chip-dot"></span>Gepland</span></div>
+            <div class="wb-row"><div class="wb-row-dot" style="background:var(--gep)"></div><div><div class="wb-row-lbl">WB-2025-0146 · De Witte</div><div class="wb-row-sub">Gepland · R. Peters</div></div><span class="chip gep"><span class="chip-dot"></span>Gepland</span></div>
+          </div>
+          <div style="padding:6px 10px"><div style="font-size:11px;font-weight:700;color:var(--s700);margin-bottom:4px">Activiteit</div>
+            <div id="act-feed">
+              <div class="act-feed-item"><div class="afdot" style="background:var(--in)"></div><div><div class="af-text"><b>T. Maes</b> startte WB-2025-0147</div><div class="af-time">07:32</div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── VIEW TOGGLE ──
+function setView(v) {
+  document.querySelectorAll('.vt').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('desktop-view').style.display = v==='desktop'?'flex':'none';
+  document.getElementById('mobile-view').classList.toggle('active', v==='mobile');
+}
+
+// ── DESKTOP NAV ──
+function switchPage(id, el) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+}
+function switchTab(el) {
+  el.closest('.tab-nav').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── DRAWER ──
+const WB = {
+  'WB-2025-0147':{klant:'Linden Bouw BV',addr:'Industrielaan 8, 3500 Hasselt',werk:'Rioleringswerken fase 1: aanleg DWA ø200 van straatkolken naar pompput. Grondwerk + bedding zand incl. terug aanvullen.',status:'in',label:'In uitvoering',excl:'€ 3.840,00',incl:'€ 4.646,40',signed:false,av:'LB'},
+  'WB-2025-0146':{klant:'De Witte Gezin',addr:'Kerkstraat 22, 3600 Genk',werk:'Terrasaanleg: uitgraven + plaatsen borduren + leggen klinkers 30/30.',status:'gep',label:'Gepland',excl:'€ 1.240,00',incl:'€ 1.500,40',signed:false,av:'DW'},
+  'WB-2025-0145':{klant:'De Witte Gezin',addr:'Kerkstraat 22, 3600 Genk',werk:'Oprit nivelleringswerken + aanleg steenslagfundering.',status:'uit',label:'Uitgevoerd',excl:'€ 2.100,00',incl:'€ 2.541,00',signed:true,av:'DW'},
+  'WB-2025-0144':{klant:'Peeters & Zonen BV',addr:'Industriepark 12, 3600 Genk',werk:'Cunet aanleg industrieterrein fase 1.',status:'fac',label:'Gefactureerd',excl:'€ 6.720,00',incl:'€ 8.131,20',signed:true,av:'PZ'},
+  'WB-2025-0149':{klant:'Janssen Construct NV',addr:'Haven 4, 3580 Beringen',werk:'Fundering parking fase 2: cunet + steenslagfundering 40cm.',status:'nog',label:'Nog te plannen',excl:'€ 4.560,00',incl:'€ 5.517,60',signed:false,av:'JC'},
+  'WB-2025-0150':{klant:'Hermans Thomas',addr:'Bosstraat 14, 3590 Diepenbeek',werk:'Drainagebuis plaatsen achtertuin.',status:'nog',label:'Nog te plannen',excl:'€ 680,00',incl:'€ 822,80',signed:false,av:'HT'},
+  'WB-2025-0148':{klant:'Janssen NV',addr:'Vrijheidslaan 1, 3580 Beringen',werk:'Fundering parking fase 1.',status:'gep',label:'Gepland',excl:'€ 3.200,00',incl:'€ 3.872,00',signed:false,av:'JN'}
+};
+function openDrawer(nr) {
+  const d = WB[nr]||WB['WB-2025-0147'];
+  document.getElementById('d-nr').textContent = nr;
+  document.getElementById('d-title').textContent = d.werk.split(':')[0].trim();
+  document.getElementById('d-klant').textContent = d.klant;
+  document.getElementById('d-addr').textContent = d.addr;
+  document.getElementById('d-werk').textContent = d.werk;
+  document.getElementById('d-av').textContent = d.av;
+  document.getElementById('d-excl').textContent = d.excl;
+  document.getElementById('d-incl').textContent = d.incl;
+  document.getElementById('d-status').innerHTML = `<span class="chip ${d.status}"><span class="chip-dot"></span>${d.label}</span>`;
+  document.getElementById('d-sig').style.display = d.signed ? 'block' : 'none';
+  const actions = {nog:'Inplannen',gep:'Start uitvoering',in:'Klant laten tekenen',uit:'Factureren',fac:'PDF sturen'};
+  document.getElementById('d-action').textContent = actions[d.status]||'Actie';
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+}
+function closeDrawer() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+}
+
+// ── DRAG & DROP (Planning) ──
+function dragCard(e, nr) {
+  e.dataTransfer.setData('text/plain', nr);
+  e.currentTarget.classList.add('dragging');
+  setTimeout(()=>e.currentTarget.classList.remove('dragging'),0);
+  document.getElementById('drop-zone').style.display = 'flex';
+}
+document.addEventListener('dragend', ()=>{ document.getElementById('drop-zone').style.display='none'; });
+function dropOnScheduler(e) {
+  e.preventDefault();
+  const nr = e.dataTransfer.getData('text/plain');
+  document.getElementById('drop-zone').style.display = 'none';
+  if (!nr) return;
+  const card = [...document.querySelectorAll('.queue-card')].find(c=>c.querySelector('.qc-nr')?.textContent===nr);
+  if (card) {
+    card.style.opacity='0.35'; card.style.pointerEvents='none';
+    const row = document.getElementById('row-kc');
+    const ev = document.createElement('div');
+    ev.className='sched-event';
+    ev.style.cssText='left:54%;width:26%;top:6px;bottom:6px;background:var(--gep)';
+    ev.innerHTML='<div class="ev-dot"></div><div class="ev-text">'+nr.replace('WB-2025-','')+'</div><div class="ev-time">13:00–16:30</div>';
+    ev.onclick=()=>openDrawer(nr);
+    row.appendChild(ev);
+    showToast('✓ '+nr+' ingepland — K. Claes · 13:00–16:30');
+  }
+}
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--s900);color:white;padding:9px 16px;border-radius:8px;font-size:12.5px;font-weight:500;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.2);white-space:nowrap';
+  t.textContent=msg; document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+
+// ── MOBILE ──
+let mobState = { step: 1, actionStep: 0 };
+function mGoTo(id) {
+  document.querySelectorAll('.mscreen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id==='ms-sign') setTimeout(initCanvas,80);
+}
+function mSwitchTab(el, panel) {
+  el.closest('.dtabs').querySelectorAll('.dtab').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+  ['mdt-details','mdt-mat','mdt-notes','mdt-fotos'].forEach(p=>{
+    document.getElementById(p).style.display = p===panel ? 'block' : 'none';
+  });
+}
+function mHandleAction() {
+  mobState.actionStep++;
+  if (mobState.actionStep===1) {
+    document.getElementById('mob-action-btn').className='ab-btn sign';
+    document.getElementById('mob-action-icon').className='ti ti-signature';
+    document.getElementById('mob-action-lbl').textContent='Klant laten tekenen';
+    setFlowStep(2);
+    addActFeed('<b>T. Maes</b> voltooide materiaal WB-0147','var(--gep)');
+  } else if (mobState.actionStep===2) {
+    mGoTo('ms-sign');
+    setFlowStep(3);
+  }
+}
+function setFlowStep(s) {
+  mobState.step = s;
+  for (let i=1;i<=4;i++) {
+    const dot=document.getElementById('fi'+i), lbl=document.getElementById('fl'+i);
+    if (i<s) { dot.className='fi-dot done'; dot.innerHTML='<i class="ti ti-check" style="font-size:11px"></i>'; lbl.className='fi-lbl done'; }
+    else if (i===s) { dot.className='fi-dot active'; dot.textContent=i; lbl.className='fi-lbl active'; }
+    else { dot.className='fi-dot'; dot.textContent=i; lbl.className='fi-lbl'; }
+    if (i<4) { const line=document.getElementById('fl'+i+(i+1)); if(line) line.className='fi-line'+(i<s?' done':''); }
+  }
+}
+function initCanvas() {
+  const canvas=document.getElementById('sig-canvas');
+  const wrap=document.getElementById('canvas-wrap');
+  if(!canvas||!wrap) return;
+  canvas.width=wrap.clientWidth||270; canvas.height=wrap.clientHeight||150;
+  const ctx=canvas.getContext('2d');
+  ctx.strokeStyle='#1E293B'; ctx.lineWidth=2; ctx.lineCap='round'; ctx.lineJoin='round';
+  let drawing=false,lx=0,ly=0;
+  function pos(e){const r=canvas.getBoundingClientRect(),s=e.touches?e.touches[0]:e;return[s.clientX-r.left,s.clientY-r.top];}
+  canvas.onmousedown=canvas.ontouchstart=e=>{e.preventDefault();drawing=true;[lx,ly]=pos(e);document.getElementById('canvas-hint').style.display='none';}
+  canvas.onmousemove=canvas.ontouchmove=e=>{if(!drawing)return;e.preventDefault();const[x,y]=pos(e);ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(x,y);ctx.stroke();[lx,ly]=[x,y];}
+  canvas.onmouseup=canvas.ontouchend=()=>{drawing=false;}
+}
+function clearCanvas() {
+  const c=document.getElementById('sig-canvas');
+  if(c) c.getContext('2d').clearRect(0,0,c.width,c.height);
+  document.getElementById('canvas-hint').style.display='flex';
+}
+function submitSign() {
+  const name=document.getElementById('sign-name-input').value||'Klant';
+  const now=new Date();
+  const t=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  document.getElementById('done-signer').textContent=name;
+  document.getElementById('done-time').textContent=t;
+  mGoTo('ms-done');
+  setFlowStep(4);
+  lockMobile(name,t);
+  syncOffice(name,t);
+}
+function lockMobile(name,t) {
+  document.getElementById('mob-locked-banner').style.display='flex';
+  document.getElementById('mob-locked-sub').textContent='Getekend door '+name+' op 26/05/2025 om '+t;
+  document.getElementById('mob-action-btn').className='ab-btn done';
+  document.getElementById('mob-action-btn').innerHTML='<i class="ti ti-circle-check"></i> Werkbon afgerond en getekend';
+  document.getElementById('mat-locked-banner').style.display='flex';
+  document.getElementById('mat-add-btn').style.display='none';
+  document.getElementById('note-input-area').style.display='none';
+  document.querySelectorAll('.mat-item').forEach(m=>m.style.pointerEvents='none');
+  // Also update desktop planning events
+  ['ev-tm-linden','ev-bn-linden','ev-jd-linden'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.background='var(--uit)';
+  });
+}
+function syncOffice(name,t) {
+  const badge=document.getElementById('sync-badge');
+  badge.style.display='flex'; setTimeout(()=>badge.style.display='none',4000);
+  document.getElementById('off-tm').style.background='var(--uit)';
+  document.getElementById('off-jd').style.background='var(--uit)';
+  document.getElementById('off-dot').style.background='var(--uit)';
+  document.getElementById('off-sub2').textContent='Uitgevoerd · Getekend door '+name;
+  const chip=document.getElementById('off-chip');
+  chip.className='chip uit'; chip.querySelector('span.chip-dot').style.background='var(--uit)';
+  document.getElementById('off-chip-txt').textContent='Uitgevoerd';
+  document.getElementById('office-sub').textContent='WB-0147 afgerond · '+t;
+  addActFeed('<b>T. Maes</b> tekende WB-0147 af — '+name,'var(--uit)');
+}
+function addActFeed(html,color) {
+  const feed=document.getElementById('act-feed');
+  const now=new Date();
+  const t=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  const item=document.createElement('div');
+  item.className='act-feed-item';
+  item.innerHTML=`<div class="afdot" style="background:${color}"></div><div><div class="af-text">${html}</div><div class="af-time">${t}</div></div>`;
+  feed.insertBefore(item,feed.firstChild);
+}
+function toggleMat(el) {
+  const c=el.querySelector('.mat-check');
+  c.classList.toggle('checked');
+}
+let fotoCount=0;
+function addFoto() {
+  fotoCount++;
+  const grid=document.getElementById('foto-grid');
+  const tile=document.createElement('div');
+  tile.className='foto-tile';
+  const bg=['#94A3B8','#64748B','#475569'][(fotoCount-1)%3];
+  tile.style.background=bg;
+  tile.innerHTML=`<i class="ti ti-photo" style="font-size:16px;color:white"></i><span style="font-size:9px;color:rgba(255,255,255,0.8)">Foto ${fotoCount}</span>`;
+  grid.insertBefore(tile,grid.firstChild);
+  document.getElementById('foto-count').textContent=fotoCount;
+  addActFeed('<b>T. Maes</b> voegde foto toe aan WB-0147','var(--s400)');
+}
+function addMatItem() {
+  const list=document.getElementById('mat-list');
+  const item=document.createElement('div');
+  item.className='mat-item'; item.onclick=function(){toggleMat(this);};
+  item.innerHTML='<div class="mat-check"><i class="ti ti-check"></i></div><div class="mat-name">Extra steenslagfundering</div><div class="mat-qty">2 ton</div>';
+  list.appendChild(item);
+  const b=document.getElementById('mat-count'); b.textContent=parseInt(b.textContent)+1;
+}
+function addNote() {
+  const ta=document.getElementById('note-ta');
+  const text=ta.value.trim(); if(!text) return;
+  const list=document.getElementById('notes-list');
+  const now=new Date();
+  const t=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  const item=document.createElement('div'); item.className='note-item';
+  item.innerHTML=`<div class="note-author"><div class="note-av" style="background:#0891B2">TM</div><span class="note-name">T. Maes</span><span class="note-time-lbl">${t}</span></div><div class="note-text">${text}</div>`;
+  list.appendChild(item); ta.value='';
+  const b=document.getElementById('note-count'); b.textContent=parseInt(b.textContent)+1;
+  addActFeed('<b>T. Maes</b> voegde notitie toe aan WB-0147','var(--s400)');
+}
+setFlowStep(1);
+</script>
+</body>
+</html>
