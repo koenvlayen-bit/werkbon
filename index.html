@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Ceulemans Grondwerken — Werkbon & Planning</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -374,6 +374,130 @@ tr:hover td{background:var(--s50);cursor:pointer}
 .fi-lbl.active{color:var(--brand);font-weight:700}
 .fi-line{width:2px;height:16px;background:var(--s200);margin:0 auto;transition:background 0.3s}
 .fi-line.done{background:var(--uit)}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+  /* Body scrolls freely on mobile */
+  html, body { overflow: auto; height: auto; font-size: 14px; }
+
+  /* Top nav: hide name, smaller padding */
+  .top-nav { padding: 0 14px; gap: 10px; height: 52px; position: sticky; top: 0; z-index: 200; }
+  .top-name { display: none; }
+  .top-logo-text { font-size: 12px; }
+  .vt { padding: 5px 10px; font-size: 11px; }
+
+  /* App shell: vertical stack, no overflow:hidden */
+  .app-shell { flex-direction: column; height: auto; overflow: visible; }
+
+  /* Sidebar becomes bottom tab bar */
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    z-index: 150;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    overflow: visible;
+  }
+  .nav {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    overflow: visible;
+    width: 100%;
+    align-items: stretch;
+  }
+  .nav-section { display: contents; margin: 0; }
+  /* Hide labels and show only main nav items as tabs */
+  .nav-label { display: none; }
+  .nav-count { display: none; }
+  .nav-item {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 4px;
+    border-radius: 0;
+    font-size: 9px;
+    white-space: nowrap;
+    border-right: 1px solid rgba(255,255,255,0.05);
+  }
+  .nav-item i { font-size: 20px; opacity: 1; }
+  .nav-item.active { background: rgba(234,88,12,0.25); }
+  /* Hide instellingen from bottom bar on mobile */
+  .nav-item:last-child { display: none; }
+
+  /* Main fills screen, with bottom padding for tab bar */
+  .main { flex: none; overflow: visible; padding-bottom: 68px; }
+
+  /* Topbar */
+  .topbar { height: auto; padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+  .topbar-title { font-size: 17px; }
+  .topbar-sub { font-size: 12px; }
+  .topbar-actions { margin-left: 0; width: 100%; }
+  .topbar-actions .btn { flex: 1; justify-content: center; }
+
+  /* Pages: normal flow */
+  .page { overflow: visible; }
+  .content { overflow: visible; }
+
+  /* KPI grid: 2x2 on mobile */
+  .kpi-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi-value { font-size: 22px; }
+  .dashboard-body { padding: 14px; gap: 12px; overflow: visible; }
+
+  /* Dash grid: single column */
+  .dash-grid { grid-template-columns: 1fr; }
+
+  /* Tab nav: horizontal scroll */
+  .tab-nav { overflow-x: auto; padding: 0 14px; -webkit-overflow-scrolling: touch; }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab { padding: 10px 10px; font-size: 12px; }
+
+  /* Planning: stack vertically */
+  .planning-layout { flex-direction: column; height: auto; overflow: visible; }
+  .queue-panel { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--s200); }
+  .queue-list { max-height: 220px; overflow-y: auto; }
+  .scheduler { height: auto; }
+  .sched-toolbar { flex-wrap: wrap; gap: 8px; }
+  .sched-body { overflow-x: auto; -webkit-overflow-scrolling: touch; height: 300px; }
+  .sched-grid { min-width: 700px; }
+
+  /* Werkbonnen: table scrolls */
+  .search-bar { padding: 10px 14px; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { min-width: 560px; }
+  th, td { padding: 9px 11px; font-size: 12px; }
+
+  /* Drawer: full screen on mobile */
+  .drawer {
+    top: 0;
+    width: 100%;
+    border-radius: 0;
+  }
+  .drawer-body { padding: 14px; }
+  .drawer-footer { padding: 12px 14px; padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+
+  /* Mobile view: single column, full width */
+  .mobile-view {
+    flex-direction: column;
+    align-items: center;
+    padding: 14px;
+    gap: 24px;
+    height: auto;
+    overflow: visible;
+  }
+  .flow-col { flex-direction: row; padding: 0; gap: 6px; }
+  .fi-line { width: 16px; height: 2px; margin: 0; }
+  .fi-step { flex-direction: column; }
+  .phone { width: 100%; max-width: 390px; }
+  .phone-inner { min-height: 580px; }
+
+  /* Cards full width */
+  .card { border-radius: 8px; }
+}
 </style>
 </head>
 <body>
@@ -828,8 +952,16 @@ tr:hover td{background:var(--s50);cursor:pointer}
 function setView(v) {
   document.querySelectorAll('.vt').forEach(b=>b.classList.remove('active'));
   event.target.classList.add('active');
-  document.getElementById('desktop-view').style.display = v==='desktop'?'flex':'none';
-  document.getElementById('mobile-view').classList.toggle('active', v==='mobile');
+  const isMobile = window.innerWidth <= 768;
+  const dv = document.getElementById('desktop-view');
+  const mv = document.getElementById('mobile-view');
+  dv.style.display = v==='desktop' ? (isMobile ? 'block' : 'flex') : 'none';
+  mv.classList.toggle('active', v==='mobile');
+  // On desktop screens, restore overflow:hidden for the shell
+  if (!isMobile) {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+  }
 }
 
 // ── DESKTOP NAV ──
@@ -838,6 +970,7 @@ function switchPage(id, el) {
   document.getElementById('page-'+id).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   el.classList.add('active');
+  window.scrollTo(0,0);
 }
 function switchTab(el) {
   el.closest('.tab-nav').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -1050,6 +1183,25 @@ function addNote() {
   addActFeed('<b>T. Maes</b> voegde notitie toe aan WB-0147','var(--s400)');
 }
 setFlowStep(1);
+
+// On desktop, keep overflow hidden for the shell layout
+// On mobile, let the page scroll naturally
+function initResponsive() {
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    document.body.style.overflow = 'auto';
+    document.documentElement.style.overflow = 'auto';
+    document.body.style.height = 'auto';
+    document.documentElement.style.height = 'auto';
+  } else {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.height = '100%';
+    document.documentElement.style.height = '100%';
+  }
+}
+initResponsive();
+window.addEventListener('resize', initResponsive);
 </script>
 </body>
 </html>
